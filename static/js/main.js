@@ -8,13 +8,14 @@ $(document).ready(function() {
     L.geoJson(aragon, {style: style}).addTo(map);
 
     var drawMarker = function(place, root){
+
         if(root){
             L.polyline([root.latlng ,place.latlng], {color: 'red'}).addTo(map);
-            var pixels = 2;
-        }else{
             var pixels = pixelsForCircle(place.students)
+           L.circleMarker(place.latlng, {radius: pixels}).addTo(map).on('click', loadData);
         }
-        L.circleMarker(place.latlng, {radius: pixels}).addTo(map);
+        var loadData = function(){console.log(place.id)}
+        
     }
 
     $.getJSON('/cras', function(cras) {
