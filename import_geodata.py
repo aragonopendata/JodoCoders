@@ -1,6 +1,14 @@
 import requests
 import time
 import json
+import MySQLdb
+
+db = MySQLdb.connect(host='localhost',
+                    user='root',
+                    passwd='',
+                    db='Datos')
+
+
 
 
 url_centros = 'http://idearagon.aragon.es/GeoserverWFS?service=WFS&request=getFeature&typeName=IDEAragon:CARTO.V206_CENTROS_EDUCATIVOS&srsName=epsg:4326&outputFormat=json'
@@ -22,16 +30,25 @@ def fetch_centros(url):
     f.close()
 
 def load_centros():
+    cursor = db.cursor()
     f = open('centros.json')
     j = json.loads(f.read())
     for feature in j['features']:
+        cra_id = int(feature['properties']['IDCENTRORC'])
         name = feature['properties']['NOMBRE_CEN']
         lon = feature['geometry']['coordinates'][0]
         lat = feature['geometry']['coordinates'][1]
-        print name
-        print lon, lat
-
+        stmt = 'update Educ_cra set Lat=%s, Lon=%s where Cod_educacion=%s'
+        cursor.execute(stmt, (lat, lon, cra_id))
+    db.commit()
+    cursor.close()
+    f.close()
 
 if __name__ == '__main__':
     # fetch_centros(url_centros)
     load_centros()
+    db.close()
+
+
+
+
