@@ -1,10 +1,16 @@
 from flask import Flask
 from flask import render_template
-
+from flaskext.mysql import MySQL
 import json
 
 app = Flask(__name__)
 
+mysql = MySQL()
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = ''
+app.config['MYSQL_DATABASE_DB'] = 'Datos'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(app)
 
 @app.route("/")
 def hello():
