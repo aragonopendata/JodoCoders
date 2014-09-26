@@ -8,7 +8,12 @@
             <p>En el curso 2013/2014 hubieron <strong>{{ total_students }}</strong> estudiantes en los diferentes <a href="https://es.wikipedia.org/wiki/Colegio_Rural_Agrupado" target="blank">C.R.A.</a> en Aragón.</p>
             <p>Repartidos en <strong>{{total_places}}</strong> poblaciones.</p>
             <p>Escolarizados en <strong>{{ total_centers }}</strong> centros diferentes.</p>
+
+            <p>Evolución de niños escolarizados desde 2002/2003:</p>
+            <canvas id="canvas" height="450" width="600"></canvas>
         </div>
     </div>
+    <script src="/static/js/Chart.min.js"></script>
+    <script src="/static/js/Chart.StackedBar.js"></script>
 {% endblock %}
          

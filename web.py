@@ -31,6 +31,10 @@ def index():
     query = 'select count(*) FROM Educ_cra_evol where Año="2013/2014"'
     cursor.execute(query)
     total_places = int(cursor.fetchone()[0])
+    cursor = mysql.connect().cursor()
+    query = 'select sum(total) FROM Educ_cra_evol where Año="2012/2013"'
+    cursor.execute(query)
+    print int(cursor.fetchone()[0])
 
     return render_template('index.html', total_students=total_students, total_centers=total_centers, total_places=total_places)
 
@@ -52,6 +56,19 @@ def cras():
                 }
         cras.append(cra)
     return json.dumps(cras)
+
+@app.route("/students_by_year")
+def students_by_year():
+    cursor = mysql.connect().cursor()
+    query = 'select sum(total), Año FROM Educ_cra_evol group by Año'
+    cursor.execute(query)
+    resp = []
+    for row in cursor:
+        resp.append({'students': row[0],
+                'year': row[1],
+                })
+    return json.dumps(resp)
+    
 
 
 if __name__ == "__main__":
