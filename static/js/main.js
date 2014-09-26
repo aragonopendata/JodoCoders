@@ -8,10 +8,13 @@ $(document).ready(function() {
     L.geoJson(aragon, {style: style}).addTo(map);
 
     var drawMarker = function(place, root){
-        L.marker(place.latlng).addTo(map);
         if(root){
             L.polyline([root.latlng ,place.latlng], {color: 'red'}).addTo(map);
+            var pixels = 2;
+        }else{
+            var pixels = pixelsForCircle(place.students)
         }
+        L.circleMarker(place.latlng, {radius: pixels}).addTo(map);
     }
 
     var cras = [cra] //TODO: change this with real data from a json
@@ -29,6 +32,7 @@ var cra = {
     name: "foo",
     latlng: [41.6567,-0.8780],
     place: "Aínsa",
+    students: 102,
     municipalities: [
         {
             name: "Boltaña",
@@ -40,8 +44,10 @@ var cra = {
         },
     ]
 }
-
-function style(feature) {
+var pixelsForCircle = function(students){
+    return parseInt(students/25)*5;
+}
+var style = function(feature) {
     return {
         fillColor: "white",
         weight: 2,
