@@ -2,14 +2,20 @@ from flask import Flask
 from flask import render_template
 from flaskext.mysql import MySQL
 import json
+import sys  
+import os.path
 
 app = Flask(__name__)
 
+def _load_settings(path):  
+    print "Loading configuration from %s" % (path)  
+    settings = {}  
+    execfile(path, globals(), settings)  
+    for setting in settings:  
+        globals()[setting] = settings[setting]  
+  
 mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
-app.config['MYSQL_DATABASE_DB'] = 'Datos'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+_load_settings("settings.py")  
 mysql.init_app(app)
 
 @app.route("/")

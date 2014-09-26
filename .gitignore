@@ -1,2 +1,3 @@
-web.pyc
+*.pyc
 .vagrant
+settings.py
