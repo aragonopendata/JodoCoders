@@ -17,12 +17,13 @@ $(document).ready(function() {
         L.circleMarker(place.latlng, {radius: pixels}).addTo(map);
     }
 
-    var cras = [cra] //TODO: change this with real data from a json
-    $.each(cras, function(index, cra) {
-        drawMarker(cra, null);
-        $.each(cra.municipalities, function(i, place) {
-            drawMarker(place, cra);
-        });
+    $.getJSON('/cras', function(cras) {
+      $.each(cras, function(index, cra) {
+          drawMarker(cra, null);
+          $.each(cra.municipalities, function(i, place) {
+              drawMarker(place, cra);
+          });
+      });
     });
 
     var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
@@ -78,7 +79,7 @@ var cra = {
     ]
 }
 var pixelsForCircle = function(students){
-    return parseInt(students/25)*5;
+    return parseInt(students/25)*3;
 }
 var style = function(feature) {
     return {
