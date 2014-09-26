@@ -26,8 +26,6 @@ $(document).ready(function() {
       });
     });
 
-    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-
     $.getJSON("/students_by_year", function(resp){
                 var labels = [];
                 var students = [];
