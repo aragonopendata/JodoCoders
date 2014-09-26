@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask
 from flask import render_template
 from flaskext.mysql import MySQL
@@ -20,7 +21,18 @@ mysql.init_app(app)
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    cursor = mysql.connect().cursor()
+    query = 'select sum(total) FROM Educ_cra_evol where Año="2013/2014"'
+    cursor.execute(query)
+    total_students = int(cursor.fetchone()[0])
+    query = 'select count(*) FROM Educ_cra'
+    cursor.execute(query)
+    total_centers = int(cursor.fetchone()[0])
+    query = 'select count(*) FROM Educ_cra_evol where Año="2013/2014"'
+    cursor.execute(query)
+    total_places = int(cursor.fetchone()[0])
+
+    return render_template('index.html', total_students=total_students, total_centers=total_centers, total_places=total_places)
 
 @app.route("/team")
 def team():
