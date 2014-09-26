@@ -90,6 +90,19 @@ def students_by_year():
                 'year': row[1],
                 })
     return json.dumps(resp)
+
+@app.route('/students_by_year/<id>')
+def show_user_in_municipality(id):
+    cursor = mysql.connect().cursor()
+    query = 'select sum(total), Año FROM Educ_cra_evol where Id_mun =%s group by Año'
+    cursor.execute(query, (id,))
+    resp = []
+    for row in cursor:
+        resp.append({'students': row[0],
+                'year': row[1],
+                })
+    return json.dumps(resp)
+    
     
 
 

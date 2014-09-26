@@ -8,13 +8,16 @@ $(document).ready(function() {
     L.geoJson(aragon, {style: style}).addTo(map);
 
     var drawMarker = function(place, root){
-
         if(root){
             L.polyline([root.latlng ,place.latlng], {color: 'red'}).addTo(map);
             var pixels = pixelsForCircle(place.students)
-           L.circleMarker(place.latlng, {radius: pixels}).addTo(map).on('click', loadData);
+            L.circleMarker(place.latlng, {radius: pixels}).addTo(map).on('click', function(){
+                $.getJSON("/students_by_year/"+place.id, function(resp){
+                    console.log(resp)
+                    drawChart(resp);
+                });
+            });
         }
-        var loadData = function(){console.log(place.id)}
         
     }
 
@@ -28,17 +31,16 @@ $(document).ready(function() {
     });
 
     $.getJSON("/students_by_year", function(resp){
-                var labels = [];
-                var students = [];
-                $.each(resp, function(key, item){
-                    labels[key] = item['year'];
-                    students[key] = item['students'];
-                });
-                console.log(students)
-                drawChart(labels, students);
+        drawChart(resp);
     });
 
-    var drawChart = function(labels, students){
+    var drawChart = function(resp){
+        var labels = [];
+        var students = [];
+        $.each(resp, function(key, item){
+            labels[key] = item['year'];
+            students[key] = item['students'];
+        });
         var barChartData = {
             labels : labels,
             datasets : [
@@ -51,9 +53,9 @@ $(document).ready(function() {
                 }
             ]
         };
-        var ctx = document.getElementById("canvas").getContext("2d");
-        window.myBar = new Chart(ctx).Bar(barChartData, {
-                responsive : true
+        var ctx = getCanvas("canvas");
+        var yearsBar = new Chart(ctx).Bar(barChartData, {
+            responsive : true
         });
     }
 
@@ -89,4 +91,13 @@ var style = function(feature) {
         dashArray: '3',
         fillOpacity: 0.2
     };
+}
+
+var getCanvas = function(elementID){
+    $("#"+elementID).remove();
+    $('<canvas>').attr({
+        id: elementID,
+        height: 300
+    }).appendTo('#chartContainer');
+    return document.getElementById("canvas").getContext("2d");
 }
