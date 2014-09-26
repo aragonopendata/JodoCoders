@@ -19,7 +19,7 @@ _load_settings("settings.py")
 mysql.init_app(app)
 
 @app.route("/")
-def hello():
+def index():
     return render_template('index.html')
 
 @app.route("/team")
