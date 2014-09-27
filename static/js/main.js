@@ -89,8 +89,9 @@ $(document).ready(function() {
     var setYear = function(y) {
       year = this.value;
       year = y;
-      $('#yearLabel').html(year);
-      $("#selected_course").text(year+"/"+(parseInt(year)+1))
+      yearString = year+"/"+(parseInt(year)+1);
+      $('#yearLabel').html(yearString);
+      $("#selected_course").text(yearString)
       load_cras();
     }
 
