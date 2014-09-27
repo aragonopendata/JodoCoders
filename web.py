@@ -44,13 +44,13 @@ def team():
 
 @app.route("/cras")
 def cras():
-    year = request.args.get('year', '2013/2014')
+    year = request.args.get('year', '2013')
+    year = year + '/' + str(int(year) + 1)
     cursor = mysql.connect().cursor()
     query = 'select c.Id_cra, c.CRA, c.Lat, c.Lon, c.Id_mun, c.Municipio, e.Id_mun, e.`Municipio sede del CRA`, m.Lat, m.Lon, e.Total from Educ_cra c join Educ_cra_evol e on c.Id_cra=e.Id_cra join A_municipios m on e.Id_mun=m.Id_mun where Año=%s;'
     cursor.execute(query, (year,))
     cras_dict = {}
     for row in cursor:
-        print row
         cra_id = row[0]
         if not cras_dict.has_key(cra_id):
             cra = {'id': row[0], #cra id

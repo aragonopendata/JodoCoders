@@ -15,6 +15,11 @@
             <p>Evolución de niños escolarizados desde 2002/2003 en <strong><span class="place_name">Aragón</span></strong>:</p>
             <div id="chartContainer">
             </div>
+            <select id="yearSelect">
+              {% for year in range(2002, 2014) %}
+                <option value="{{ year }}">{{ year }}</option>
+              {% endfor %}
+            </select>
         </div>
     </div>
     <script src="/static/js/Chart.min.js"></script>

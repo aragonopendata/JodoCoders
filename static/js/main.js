@@ -6,12 +6,14 @@ $(document).ready(function() {
     L.geoJson(aragon, {style: style}).addTo(map);
     map.addLayer(layer);
 
+    var markers = L.layerGroup();
+
     var drawMarker = function(place, root){
         if(root){
-            L.polyline([root.latlng ,place.latlng], {color: '#000'}).addTo(map);
+            L.polyline([root.latlng ,place.latlng], {color: '#000'}).addTo(markers);
             var pixels = pixelsForCircle(place.students)
             L.circleMarker(place.latlng, {radius: pixels, color: '#D99343', opacity: 0.7, fillOpacity:0.5})
-                .addTo(map)
+                .addTo(markers)
                 .bindPopup("<strong>" + place.name + "</strong>. "+ place.students +" alumnos<br/>"+root.name)
                 .on('click', function(){
                     this.openPopup();
@@ -26,14 +28,28 @@ $(document).ready(function() {
         
     }
 
-    $.getJSON('/cras', function(cras) {
-      $.each(cras, function(index, cra) {
-          drawMarker(cra, null);
-          $.each(cra.municipalities, function(i, place) {
-              drawMarker(place, cra);
+    var year = 2013;
+
+    var load_cras = function() {
+        $.getJSON('/cras', {year: year}, function(cras) {
+          map.removeLayer(markers);
+          markers = L.layerGroup().addTo(map);;
+
+          $.each(cras, function(index, cra) {
+              drawMarker(cra, null);
+              $.each(cra.municipalities, function(i, place) {
+                  drawMarker(place, cra);
+              });
           });
-      });
+        });
+    }
+    load_cras();
+
+    $('#yearSelect').on('change', function() {
+      year = this.value;
+      load_cras();
     });
+
 
     $.getJSON("/students_by_year", function(resp){
         drawChart(resp);
@@ -63,7 +79,6 @@ $(document).ready(function() {
             responsive : true
         });
     }
-
     
 });
 
