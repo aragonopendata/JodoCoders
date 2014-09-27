@@ -28,17 +28,21 @@ En caso de duda consultar la documentación oficial de [pip](https://pip.readthe
 
 Antes de instalar las librerías Python requeridas, necesitas instalar MySQL en tu sistema:
 
-Ejemplo Ubuntu: `sudo apt-get install libmysqlclient-dev`
+Ejemplo Ubuntu: `sudo apt-get install mysql-server mysql-client libmysqlclient-dev`
+
 Ejemplo MacOSX, con [Homebrew](http://brew.sh/): `brew install mysql`
 
+Después, hay que crear e importar la base de datos a MySQL, en este caso con el original nombre de 'Datos':
+
+```
+echo "CREATE DATABASE Datos" | mysql -uTuUsuario -pTuPassword
+mysql -uTuUsuario -p Datos < data/datos.sql
+```
+No olvides copiar el fichero `settings.py.example`a `settings.py`con tus datos de conexión a base de datos.
 
 Para instalar las dependencias de las librerías Python:
 
 `pip install -r requirements.txt`
-
-Después, hay que importar la base de datos a MySQL, en este caso con el original nombre de 'Datos'. 
-
-`mysql -uTuUsuario -p Datos < data/datos.sql`
 
 
 ### Notas
