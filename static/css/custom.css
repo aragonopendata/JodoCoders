@@ -12,6 +12,9 @@ h1 a{text-decoration:none;}
 }
 #content h3{display: inline-block; margin-right: 10px}
 #content a{color: #008CBA;}
+#share{text-align: center; padding-top: 25px; padding-bottom: 20px; font-size: 1.25em;}
+#share a{color:#2E3133;font-weight:bold }
+#share a:hover{color:#D99343; text-decoration: none;}
 #map{height: 750px}
 #yearLabel {
   margin-top: 25px;
