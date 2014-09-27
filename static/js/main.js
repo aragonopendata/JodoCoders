@@ -99,9 +99,8 @@ $(document).ready(function() {
     });
 
     $(".dragger").append($('<div id="yearLabel"></div>'));
-
-    //setYear(2013);
     $('#yearSelect').simpleSlider('setValue', 2013);
+    setYear(2013);
 
 
     $.getJSON("/students_by_year", function(resp){
