@@ -24,7 +24,11 @@ $(document).ready(function() {
                 });
             });
             marker.on('mouseover', function(e){
-                this.setRadius(pixels*2)
+                if(pixels>12){
+                    this.setRadius(pixels*1.5)
+                }else{
+                    this.setRadius(pixels*3)
+                }
                 this.setStyle({fillOpacity: 0.7})
             })
             marker.on('mouseout', function(){
