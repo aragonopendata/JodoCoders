@@ -7,7 +7,11 @@ Los datos de los CRA han sido extraídos de <http://opendata.aragon.es/catalogo/
 
 
 ### Información Técnica
-Nuestra app es una aplicación web Python usando el framework [Flask](http://flask.pocoo.org/), y MySQL como base de datos. Para gestionar las depencias, usamos el gestor de dependencias `pip`, que puedes instalar en Linux/MacOsX con:
+Nuestra app es una aplicación web Python usando el framework [Flask](http://flask.pocoo.org/), y MySQL como base de datos.
+
+Para facilitar la puesta en marcha del entorno de desarrollo, hemos creado un **Vagrantfile**. Si tienes instalado Vagrant, será tan simple como hacer un `vagrant up`, y la máquina se autoaprovisionará con todas las dependencias, sobre un Ubuntu 14.04. Ojea <https://www.vagrantup.com/> si no conoces Vagrant. Si prefieres configurar manualmente todo el entorno, a continuación están los pasos necesarios.
+
+Para gestionar las depencias, usamos el gestor de dependencias `pip`, que puedes instalar en Linux/MacOsX con:
 
 ```
 curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
