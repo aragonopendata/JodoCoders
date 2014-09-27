@@ -36,8 +36,6 @@ def index():
     cursor = mysql.connect().cursor()
     query = 'select sum(total) FROM Educ_cra_evol where Año="2012/2013"'
     cursor.execute(query)
-    print int(cursor.fetchone()[0])
-
     return render_template('index.html', total_students=total_students, total_centers=total_centers, total_places=total_places)
 
 @app.route("/team")
@@ -46,7 +44,7 @@ def team():
 
 @app.route("/cras")
 def cras():
-    year = request.args.get('year', '2002/2003')
+    year = request.args.get('year', '2013/2014')
     cursor = mysql.connect().cursor()
     query = 'select c.Id_cra, c.CRA, c.Lat, c.Lon, c.Id_mun, c.Municipio, e.Id_mun, e.`Municipio sede del CRA`, m.Lat, m.Lon, e.Total from Educ_cra c join Educ_cra_evol e on c.Id_cra=e.Id_cra join A_municipios m on e.Id_mun=m.Id_mun where Año=%s;'
     cursor.execute(query, (year,))
@@ -91,15 +89,16 @@ def students_by_year():
                 })
     return json.dumps(resp)
 
-@app.route('/students_by_year/<id>')
-def show_user_in_municipality(id):
+@app.route('/show_municipality/<id>')
+def show_municipality(id):
     cursor = mysql.connect().cursor()
-    query = 'select sum(total), Año FROM Educ_cra_evol where Id_mun =%s group by Año'
+    query = 'select sum(total), Año, `Municipio sede del CRA` FROM Educ_cra_evol where Id_mun =%s group by Año'
     cursor.execute(query, (id,))
     resp = []
     for row in cursor:
         resp.append({'students': row[0],
                 'year': row[1],
+                'name': row[2],
                 })
     return json.dumps(resp)
     

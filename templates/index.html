@@ -2,14 +2,17 @@
 {% block content %}
     <div class="row">
         <div class="large-8 columns" role="content">
-            <div id="map">mee</div>
+            <div id="map"></div>
         </div>
         <div class="large-4 columns">
-            <p>En el curso 2013/2014 hubieron <strong>{{ total_students }}</strong> estudiantes en los diferentes <a href="https://es.wikipedia.org/wiki/Colegio_Rural_Agrupado" target="blank">C.R.A.</a> en Aragón.</p>
+            <h3>En <span class="place_name">Aragón</span></h3>
+            <p>En el curso 2013/2014 hubieron <strong id="total_students">{{ total_students }}</strong> estudiantes en centros rurales agrupados.</p>
+            <div id="general_data">
             <p>Repartidos en <strong>{{total_places}}</strong> poblaciones.</p>
             <p>Escolarizados en <strong>{{ total_centers }}</strong> centros diferentes.</p>
+            </div>
 
-            <p>Evolución de niños escolarizados desde 2002/2003:</p>
+            <p>Evolución de niños escolarizados desde 2002/2003 en <strong><span class="place_name">Aragón</span></strong>:</p>
             <div id="chartContainer">
             </div>
         </div>

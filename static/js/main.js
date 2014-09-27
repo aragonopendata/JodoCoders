@@ -11,11 +11,18 @@ $(document).ready(function() {
         if(root){
             L.polyline([root.latlng ,place.latlng], {color: 'red'}).addTo(map);
             var pixels = pixelsForCircle(place.students)
-            L.circleMarker(place.latlng, {radius: pixels}).addTo(map).on('click', function(){
-                $.getJSON("/students_by_year/"+place.id, function(resp){
-                    console.log(resp)
-                    drawChart(resp);
-                });
+            L.circleMarker(place.latlng, {radius: pixels})
+                .addTo(map)
+                .bindPopup("<strong>" + place.name + "</strong>. "+ place.students +" alumnos<br/>"+root.name)
+                .on('click', function(){
+                    this.openPopup();
+                    $.getJSON("/show_municipality/"+place.id, function(resp){
+                        console.log(resp)
+                        $(".place_name").text(resp[0].name);
+                        $("#total_students").text(place.students)
+                        $("#general_data").html("<p>Pertenece a <strong>" + root.name + "</strong></p>");
+                        drawChart(resp);
+                    });
             });
         }
         
@@ -80,7 +87,11 @@ var cra = {
     ]
 }
 var pixelsForCircle = function(students){
-    return parseInt(students/25)*3;
+    var scaling = students/25
+    if(scaling < 1){
+        scaling = 1
+    }
+    return parseInt(scaling*4);
 }
 var style = function(feature) {
     return {
