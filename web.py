@@ -33,25 +33,26 @@ def __total_places_by_year(year, cursor):
     total_places = int(cursor.fetchone()[0])
     return total_places
 
+def __total_centers_by_year(year, cursor):
+    query = 'select count(DISTINCT id_CRA) FROM Educ_cra_evol where Año=%s'
+    cursor.execute(query, (year,))
+    total_centers = int(cursor.fetchone()[0])
+    return total_centers
+
 @app.route("/")
 def index():
     cursor = mysql.connect().cursor()
-    query = 'select count(*) FROM Educ_cra'
-    cursor.execute(query)
-    total_centers = int(cursor.fetchone()[0])
+    
     year = '2013/2014'
-    return render_template('index.html', total_students=__total_students_by_year(year, cursor), total_centers=total_centers, total_places=__total_places_by_year(year, cursor))
+    return render_template('index.html', total_students=__total_students_by_year(year, cursor), total_centers=__total_centers_by_year(year, cursor), total_places=__total_places_by_year(year, cursor))
 
 @app.route("/statistics")
 def statistics():
     year = request.args.get('year', '2013')
     year = year + '/' + str(int(year) + 1)
     cursor = mysql.connect().cursor()
-    query = 'select count(*) FROM Educ_cra'
-    cursor.execute(query)
-    total_centers = int(cursor.fetchone()[0])
     statistics = { 'total_students': __total_students_by_year(year, cursor), 
-        'total_centers': total_centers, 
+        'total_centers': __total_centers_by_year(year, cursor), 
         'total_places': __total_places_by_year(year, cursor)
     }
     return json.dumps(statistics)
