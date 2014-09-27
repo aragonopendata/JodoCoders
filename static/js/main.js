@@ -11,18 +11,26 @@ $(document).ready(function() {
         if(root){
             L.polyline([root.latlng ,place.latlng], {color: '#000'}).addTo(markers);
             var pixels = pixelsForCircle(place.students)
-            L.circleMarker(place.latlng, {radius: pixels, color: '#D99343', opacity: 0.7, fillOpacity:0.5})
+            var marker = L.circleMarker(place.latlng, {radius: pixels, color: '#D99343', opacity: 0.7, fillOpacity:0.3})
                 .addTo(markers)
-                .bindPopup("<strong>" + place.name + "</strong>. "+ place.students +" alumnos<br/>"+root.name)
-                .on('click', function(){
-                    this.openPopup();
-                    $.getJSON("/show_municipality/"+place.id, function(resp){
-                        $(".place_name").text(resp[0].name);
-                        $("#total_students").text(place.students)
-                        $("#general_data").html("<p>Pertenece a <strong>" + root.name + "</strong></p>");
-                        drawChart(resp);
-                    });
+                .bindPopup("<strong>" + place.name + "</strong>. "+ place.students +" alumnos<br/>"+root.name);
+            marker.on('click', function(){
+                this.openPopup();
+                $.getJSON("/show_municipality/"+place.id, function(resp){
+                    $(".place_name").text(place.name);
+                    $("#total_students").text(place.students)
+                    $("#general_data").html("<p>Pertenece a <strong>" + root.name + "</strong></p>");
+                    drawChart(resp);
                 });
+            });
+            marker.on('mouseover', function(e){
+                this.setRadius(pixels*2)
+                this.setStyle({fillOpacity: 0.7})
+            })
+            marker.on('mouseout', function(){
+                this.setRadius(pixels);
+                this.setStyle({fillOpacity: 0.3})
+            })
         }
         
     }
