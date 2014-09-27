@@ -41,7 +41,10 @@ $(document).ready(function() {
         selectedPlace = {place: place, cra_name: cra_name};
         $(".place_name").text(place.name);
         $("#total_students").text(place.students)
-        $("#general_data").html("<p>Pertenece a <strong>" + cra_name + "</strong></p>");
+        $("#general_data").hide();
+        $('#place_data').html("<p>Pertenece a <strong>" + cra_name + "</strong></p>")
+        $('#total_students_general_copy').hide();
+        $('#back_to_aragon').show();
     }
 
     var year = 2013;
@@ -73,11 +76,21 @@ $(document).ready(function() {
         });
     }
 
+    $('#back_to_aragon').on('click', function(){
+        $('#back_to_aragon').hide();
+        selectedPlace = null;
+        $(".place_name").text("Aragón");
+        $("#general_data").show();
+        $('#place_data').html("")
+        load_cras();
+        return false
+    });
+
     var setYear = function(y) {
       year = this.value;
       year = y;
       $('#yearLabel').html(year);
-      //$("#selected_course").text($(this).find(":selected").text())
+      $("#selected_course").text(year+"/"+(parseInt(year)+1))
       load_cras();
     }
 

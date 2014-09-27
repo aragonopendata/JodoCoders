@@ -9,6 +9,7 @@ h1 a{text-decoration:none;}
     background-color: #fff; margin: 40px 100px 40px 100px; padding-top: 70px; padding-bottom: 70px; 
     -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px;
 }
+#content h3{display: inline-block; margin-right: 10px}
 #content a{color: #008CBA;}
 #map{height: 750px}
 #yearLabel {
