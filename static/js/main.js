@@ -13,13 +13,11 @@ $(document).ready(function() {
             var pixels = pixelsForCircle(place.students)
             var marker = L.circleMarker(place.latlng, {radius: pixels, color: '#D99343', opacity: 0.7, fillOpacity:0.3})
                 .addTo(markers)
-                .bindPopup("<strong>" + place.name + "</strong>. "+ place.students +" alumnos<br/>"+root.name);
             marker.on('click', function(){
+                this.bindPopup("<strong>" + place.name + "</strong>. "+ place.students +" alumnos<br/>"+root.name);
                 this.openPopup();
-                $.getJSON("/show_municipality/"+place.id, function(resp){
-                    $(".place_name").text(place.name);
-                    $("#total_students").text(place.students)
-                    $("#general_data").html("<p>Pertenece a <strong>" + root.name + "</strong></p>");
+                selectPlace(place, root.name);
+                $.getJSON("/show_municipality/"+place.id, {year: year}, function(resp){
                     drawChart(resp);
                 });
             });
@@ -39,7 +37,15 @@ $(document).ready(function() {
         
     }
 
+    var selectPlace = function(place, cra_name){
+        selectedPlace = {place: place, cra_name: cra_name};
+        $(".place_name").text(place.name);
+        $("#total_students").text(place.students)
+        $("#general_data").html("<p>Pertenece a <strong>" + cra_name + "</strong></p>");
+    }
+
     var year = 2013;
+    var selectedPlace;
 
     var load_cras = function() {
         $.getJSON('/cras', {year: year}, function(cras) {
@@ -50,14 +56,21 @@ $(document).ready(function() {
               drawMarker(cra, null);
               $.each(cra.municipalities, function(i, place) {
                   drawMarker(place, cra);
+
+                  if(selectedPlace && selectedPlace.place.id==place.id){
+                    selectPlace(place, selectedPlace.cra_name)
+                  }
               });
           });
+
+          
         });
     }
     load_cras();
 
     $('#yearSelect').on('change', function() {
       year = this.value;
+      $("#selected_course").text($(this).find(":selected").text())
       load_cras();
     });
 
