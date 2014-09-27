@@ -5,6 +5,7 @@
             <div id="map"></div>
         </div>
         <div class="large-5 columns">
+            <input id="yearSelect" type="text" data-slider="true" data-slider-range="2002,2013" data-slider-step="1" data-slider-snap="true">
             <h3>En <span class="place_name">Aragón</span></h3>
             <p>En el curso <span id="selected_course">2013/2014</span> hubieron <strong id="total_students">{{ total_students }}</strong> estudiantes en centros rurales agrupados.</p>
             <div id="general_data">
@@ -15,11 +16,11 @@
             <p>Evolución de niños escolarizados de los últimos años en <strong><span class="place_name">Aragón</span></strong>:</p>
             <div id="chartContainer">
             </div>
-            <select id="yearSelect">
-              {% for year in range(2002, 2014) %}
-                <option value="{{ year }}">{{ year }}</option>
-              {% endfor %}
-            </select>
+            <!-- <select id="yearSelect"> -->
+            <!--   {% for year in range(2002, 2014) %} -->
+            <!--     <option value="{{ year }}">{{ year }}</option> -->
+            <!--   {% endfor %} -->
+            <!-- </select> -->
         </div>
     </div>
 {% endblock %}

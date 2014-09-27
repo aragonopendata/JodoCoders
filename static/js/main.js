@@ -72,13 +72,23 @@ $(document).ready(function() {
           
         });
     }
-    load_cras();
 
-    $('#yearSelect').on('change', function() {
+    var setYear = function(y) {
       year = this.value;
-      $("#selected_course").text($(this).find(":selected").text())
+      year = y;
+      $('#yearLabel').html(year);
+      //$("#selected_course").text($(this).find(":selected").text())
       load_cras();
+    }
+
+    $("#yearSelect").bind("slider:changed", function (event, data) {
+      setYear(this.value);
     });
+
+    $(".dragger").append($('<div id="yearLabel"></div>'));
+
+    //setYear(2013);
+    $('#yearSelect').simpleSlider('setValue', 2013);
 
 
     $.getJSON("/students_by_year", function(resp){
@@ -136,3 +146,4 @@ var getCanvas = function(elementID){
     }).appendTo('#chartContainer');
     return document.getElementById("canvas").getContext("2d");
 }
+
