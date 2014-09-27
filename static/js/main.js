@@ -56,13 +56,19 @@ $(document).ready(function() {
               drawMarker(cra, null);
               $.each(cra.municipalities, function(i, place) {
                   drawMarker(place, cra);
-
                   if(selectedPlace && selectedPlace.place.id==place.id){
                     selectPlace(place, selectedPlace.cra_name)
                   }
               });
           });
 
+        if(!selectedPlace){
+            $.getJSON('/statistics', {year: year}, function(stats){
+                $("#total_places").text(stats.total_places);
+                $("#total_students").text(stats.total_students);
+                $("#total_centers").text(stats.total_centers);
+            });
+        }
           
         });
     }
