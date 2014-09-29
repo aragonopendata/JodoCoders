@@ -7,12 +7,12 @@ h1{margin-top: 30px; font-family: 'Open Sans', sans-serif; font-size: 3.25rem;}
 h1 a{text-decoration:none;}
 #help p{margin-top: 50px; font-size: 0.75rem;}
 #content{
-    background-color: #fff; margin: 5% 5% 40px 5%; padding-top: 70px; padding-bottom: 5%; 
+    background-color: #fff; margin: 5% 5% 40px 5%; padding-top: 70px; padding-bottom: 20px; 
     -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px;
 }
 #content h3{display: inline-block; margin-right: 10px}
 #content a{color: #008CBA;}
-#share{text-align: center; padding-top: 25px; padding-bottom: 20px; font-size: 1.25em;}
+#share{text-align: center; padding-top: 25px; font-size: 1.25em;}
 #share a{color:#2E3133;font-weight:bold }
 #share a:hover{color:#D99343; text-decoration: none;}
 #map{height: 750px}
