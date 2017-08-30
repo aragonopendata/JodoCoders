@@ -1,0 +1,38 @@
+	{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href="../../../public/themes/aod/tipografia.css" media="screen" type="text/css" />
+    <div class="row">
+        <div id="barraTiempo" class="large-12 columns">
+             <label>Curso</label> <input id="yearSelect" type="text" data-slider="true" data-slider-range="2008,2016" data-slider-step="1" data-slider-snap="true">
+        </div>
+        <div class="large-7 columns" role="content">
+            <div id="map"></div>
+        </div>
+        <div class="large-5 columns">
+            <h3>En <span class="place_name">Aragón</span><span class="CRA_name"></span></h3> <a href="#" id="back_to_aragon" style='display:none'>Ver todo Aragón</a>
+
+            <p>En el curso <span id="selected_course">2014/2015</span> hubo <strong id="total_students">{{ total_students }}</strong> <strong id="total_students_CRA"></strong> estudiantes<span id="total_students_general_copy"> en Colegios Rurales Agrupados</span>.</p>
+            <div id="general_data">
+            <p>Repartidos en <strong id="total_places">{{total_places}}</strong> poblaciones.</p>
+            <p>Escolarizados en <strong id="total_centers">{{ total_centers }}</strong> centros diferentes.</p>
+            </div>
+            <div id="place_data"></div>
+
+            <p>Evolución de niños escolarizados en el curso <span id="selected_course">2014/2015</span> en el aula de <strong><span class="place_name">Aragón</span><span class="CRA_name"></span></strong>:</p>
+            <div id="chartContainer">
+                <div class="canvasLine"></div>
+                <div class="canvasBar"></div>
+            </div>
+            <div id="chartContainerCRA">
+                <div class="canvasLine"></div>
+                <div class="canvasBar"></div>
+            </div>
+        </div>
+        
+        <div id="share" class="large-12 columns">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://crasaragon.com/" target="_blank">Compártelo en Facebook</a> | 
+            <a href="https://twitter.com/intent/tweet?original_referer=http://crasaragon.com/&amp;text=Descubre la distribución y evolución de los Colegios Rurales Agrupados de Aragón&amp;tw_p=tweetbutton&amp;url=http://crasaragon.com/" target="_blank">Compártelo en Twitter</a>
+        </div>
+    </div>
+{% endblock %}
+         

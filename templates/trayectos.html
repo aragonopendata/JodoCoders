@@ -1,0 +1,266 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../../../../public/themes/aod/tipografia.css" media="screen" type="text/css" />
+
+<style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        left: 2.5%;
+    		width: 95%;
+    		margin: 0;
+        //margin-bottom: 30px;
+      }
+      
+      #floating-panel {
+				margin-top: 5px;
+				position: absolute;
+				z-index: 5;
+				left: 25%;
+				font-family: 'aodTextos', 'Roboto' !important;
+      }
+
+      #retrocede a{
+         font-family:'aodTituloResaltado', 'Roboto';
+        text-transform: uppercase;
+        font-size: 30px;
+        letter-spacing: 0.07em;
+        font-weight: normal;
+        color: #2E3133;
+        line-height: 1.5em;
+        margin-right: 2.5%;
+        float:right;
+        margin-top: 10px;
+      }
+      #craName{
+        font-family: 'aodRoboto', 'Roboto';
+        text-transform: uppercase;
+        font-size: 45px;
+        letter-spacing: 0.1em;
+        font-weight: 300;
+        line-height: 1.5em;
+        margin-left: 2.5%; 
+        color: #2E3133;
+        vertical-align: middle;
+        float:left;
+      }
+      
+      .cabecera{
+        display: block; margin-bottom: 70px;
+      }
+
+      #introTrayecto{
+        padding: 30px 2.5%;
+      }
+      
+      #trayecto{
+        padding: 30px 2.5%;
+      }
+
+      #guia{
+      }
+
+      @media screen and (min-width:320px) and (max-width: 1024px)  {
+        #craName{
+
+        }
+        #retrocede a{
+         float:none;
+          margin-right:2.5%;
+          margin-left:2.5%;
+        }
+
+        .cabecera{
+          margin-bottom: 0px;
+        }
+      }
+      
+    </style>
+    
+    {% set destinos = data['trayectos']	 %}
+    {% set cra_name = data['cra']['name']|replace('aacute;','á')|replace('eacute;','é')|replace('iacute;','í')|replace('oacute;','ó')|replace('uacute;','ú')|replace('Aacute;','Á')|replace('Eacute;','É')|replace('Iacute;','Í')|replace('Oacute;','Ó')|replace('Uacute;','Ú')|replace('quot;','"')|replace('lt;','<')|replace('gt;','>')|replace('iquest;','¿')|replace('iexcl;','¡')|replace('Ntilde;','Ñ')|replace('ntilde;','ñ')|replace('ordm;','º')|replace('ordf;','ª')|replace('almohadilla;','#')|replace('almohadilla;','#')|replace('uuml;','ü') %}
+    {% set sede_cra = data['cra']['municipio_sede_del_CRA']|replace('aacute;','á')|replace('eacute;','é')|replace('iacute;','í')|replace('oacute;','ó')|replace('uacute;','ú')|replace('Aacute;','Á')|replace('Eacute;','É')|replace('Iacute;','Í')|replace('Oacute;','Ó')|replace('Uacute;','Ú')|replace('quot;','"')|replace('lt;','<')|replace('gt;','>')|replace('iquest;','¿')|replace('iexcl;','¡')|replace('Ntilde;','Ñ')|replace('ntilde;','ñ')|replace('ordm;','º')|replace('ordf;','ª')|replace('almohadilla;','#')|replace('almohadilla;','#')|replace('uuml;','ü')%}
+    
+   
+    <div class="cabecera" >
+      <div id="craName" >{{cra_name}}</div>  
+      <div id="retrocede"><a href="../../evolucion-alumnos" >&lt;RETROCEDE</a></div>
+    </div>
+    <div id="introTrayecto" class="textosNormales">
+    	El CRA {{cra_name}} se encuentra en el municipio de {{sede_cra}} y da servicio a los municipios de 
+    	{% set i = 0	 %}
+    	{% for destino in destinos %}
+    		{% if i == 0 %}
+    			{{destino['name_municipity']|replace('aacute;','á')|replace('eacute;','é')|replace('iacute;','í')|replace('oacute;','ó')|replace('uacute;','ú')|replace('Aacute;','Á')|replace('Eacute;','É')|replace('Iacute;','Í')|replace('Oacute;','Ó')|replace('Uacute;','Ú')|replace('quot;','"')|replace('lt;','<')|replace('gt;','>')|replace('iquest;','¿')|replace('iexcl;','¡')|replace('Ntilde;','Ñ')|replace('ntilde;','ñ')|replace('ordm;','º')|replace('ordf;','ª')|replace('almohadilla;','#')|replace('uuml;','ü')}}
+    		{% elif i == (destinos|length -1)%}
+           y {{destino['name_municipity']|replace('aacute;','á')|replace('eacute;','é')|replace('iacute;','í')|replace('oacute;','ó')|replace('uacute;','ú')|replace('Aacute;','Á')|replace('Eacute;','É')|replace('Iacute;','Í')|replace('Oacute;','Ó')|replace('Uacute;','Ú')|replace('quot;','"')|replace('lt;','<')|replace('gt;','>')|replace('iquest;','¿')|replace('iexcl;','¡')|replace('Ntilde;','Ñ')|replace('ntilde;','ñ')|replace('ordm;','º')|replace('ordf;','ª')|replace('almohadilla;','#')|replace('uuml;','ü')}}
+        {% else %}
+    			, {{destino['name_municipity']|replace('aacute;','á')|replace('eacute;','é')|replace('iacute;','í')|replace('oacute;','ó')|replace('uacute;','ú')|replace('Aacute;','Á')|replace('Eacute;','É')|replace('Iacute;','Í')|replace('Oacute;','Ó')|replace('Uacute;','Ú')|replace('quot;','"')|replace('lt;','<')|replace('gt;','>')|replace('iquest;','¿')|replace('iexcl;','¡')|replace('Ntilde;','Ñ')|replace('ntilde;','ñ')|replace('ordm;','º')|replace('ordf;','ª')|replace('almohadilla;','#')|replace('uuml;','ü')}}
+    		{% endif%}
+        {% set i = i+1   %}
+    	{% endfor %}
+      
+      {% set padrones = data['padrones']  %}
+      {% set poblacion_total_municipios_pendiente_cras = 0  %}
+      {% set i = 0   %}
+      {% for padron in padrones %}
+        {% set poblacion_total_municipios_pendiente_cras = poblacion_total_municipios_pendiente_cras + padron  %}
+        {% if i == (padrones|length -1)%}
+          . Todos estos municipios tienen una población de {{poblacion_total_municipios_pendiente_cras}}
+        {% endif%}
+        {% set i = i+1   %}
+      {% endfor %}
+
+       y en el curso {{data['year']}} aportaron {{data['total_estudiantes_CRAS']}} alumnos al CRA
+    </div>
+     <div id="floating-panel">
+		  <select id="end">
+		      <option value="">Seleccione una ruta para visualizar el trayecto</option>
+		      {% for destino in destinos %}
+
+						<option value="{{destino['latlng'][0]}},{{destino['latlng'][1]}}">Ruta de {{data['cra']['name']|replace('aacute;','á')|replace('eacute;','é')|replace('iacute;','í')|replace('oacute;','ó')|replace('uacute;','ú')|replace('Aacute;','Á')|replace('Eacute;','É')|replace('Iacute;','Í')|replace('Oacute;','Ó')|replace('Uacute;','Ú')|replace('quot;','"')|replace('lt;','<')|replace('gt;','>')|replace('iquest;','¿')|replace('iexcl;','¡')|replace('Ntilde;','Ñ')|replace('ntilde;','ñ')|replace('ordm;','º')|replace('ordf;','ª')|replace('almohadilla;','#')}}  a  {{destino['name_municipity']|replace('aacute;','á')|replace('eacute;','é')|replace('iacute;','í')|replace('oacute;','ó')|replace('uacute;','ú')|replace('Aacute;','Á')|replace('Eacute;','É')|replace('Iacute;','Í')|replace('Oacute;','Ó')|replace('Uacute;','Ú')|replace('quot;','"')|replace('lt;','<')|replace('gt;','>')|replace('iquest;','¿')|replace('iexcl;','¡')|replace('Ntilde;','Ñ')|replace('ntilde;','ñ')|replace('ordm;','º')|replace('ordf;','ª')|replace('almohadilla;','#')|replace('uuml;','ü')}}</option>
+					{% endfor %}
+		      
+		      
+		  </select>
+    </div>
+     <div id="map"></div>
+    <div class="textosNormales" id="trayecto">
+      El Trayecto
+      Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a través de los años, algunas veces por accidente, otras veces a propósito (por ejemplo insertándole humor y cosas por el estilo).
+      <div class="estimacion">
+        
+      </div>
+
+      <div class="direcciones">
+        
+      </div>
+
+      <div id="guia"></div>
+
+
+    </div>
+      
+    </div>
+    
+
+<!-- Metemos el javascript-->
+<script>
+var destinos_cras = [
+ 
+
+{% for destino in destinos %}
+	{lat: {{destino['latlng'][0]}}, lng: {{destino['latlng'][1]}} }, //{{destino['name_municipity']|replace('aacute;','á')|replace('eacute;','é')|replace('iacute;','í')|replace('oacute;','ó')|replace('uacute;','ú')|replace('Aacute;','Á')|replace('Eacute;','É')|replace('Iacute;','Í')|replace('Oacute;','Ó')|replace('Uacute;','Ú')|replace('quot;','"')|replace('lt;','<')|replace('gt;','>')|replace('iquest;','¿')|replace('iexcl;','¡')|replace('Ntilde;','Ñ')|replace('ntilde;','ñ')|replace('ordm;','º')|replace('ordf;','ª')|replace('almohadilla;','#')|replace('uuml;','ü')}}
+
+{% endfor %}
+
+];
+
+var markers = [
+];
+var map;
+
+function initMap() {
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+  var directionsService = new google.maps.DirectionsService;
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 11,
+    center: {lat: {{data['cra']['latlng'][0]}}, lng: {{data['cra']['latlng'][1]}}}, //{{data['cra']['name']|replace('aacute;','á')|replace('eacute;','é')|replace('iacute;','í')|replace('oacute;','ó')|replace('uacute;','ú')|replace('Aacute;','Á')|replace('Eacute;','É')|replace('Iacute;','Í')|replace('Oacute;','Ó')|replace('Uacute;','Ú')|replace('quot;','"')|replace('lt;','<')|replace('gt;','>')|replace('iquest;','¿')|replace('iexcl;','¡')|replace('Ntilde;','Ñ')|replace('ntilde;','ñ')|replace('ordm;','º')|replace('ordf;','ª')|replace('almohadilla;','#')|replace('almohadilla;','#')|replace('uuml;','ü')}}
+    mapTypeId: 'mapaTrayecto'
+  });
+  
+  var image = '../../static/img/purple-dot.png';
+  var crasMarker = new google.maps.Marker({
+    position: {lat: {{data['cra']['latlng'][0]}}, lng: {{data['cra']['latlng'][1]}}}, //{{data['cra']['name']|replace('aacute;','á')|replace('eacute;','é')|replace('iacute;','í')|replace('oacute;','ó')|replace('uacute;','ú')|replace('Aacute;','Á')|replace('Eacute;','É')|replace('Iacute;','Í')|replace('Oacute;','Ó')|replace('Uacute;','Ú')|replace('quot;','"')|replace('lt;','<')|replace('gt;','>')|replace('iquest;','¿')|replace('iexcl;','¡')|replace('Ntilde;','Ñ')|replace('ntilde;','ñ')|replace('ordm;','º')|replace('ordf;','ª')|replace('uuml;','ü')}}
+    map: map,
+    title:"{{data['cra']['name']}}",
+    icon: image
+  });
+  
+	var colores = [
+		{
+			featureType: "all",
+			elementType: "all",
+			stylers: [
+				{ saturation: -100 }
+			]
+		}
+	];
+	
+	
+	var estilo = new google.maps.StyledMapType(colores);
+	map.mapTypes.set('mapaTrayecto', estilo);
+  drop();
+  
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('guia'));
+  
+  
+  var control = document.getElementById('floating-panel');
+  control.style.display = 'block';
+  //map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+  
+   var onChangeHandler = function() {
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+  };
+  document.getElementById('end').addEventListener('change', onChangeHandler);
+}
+
+function drop() {
+  clearMarkers();
+  for (var i = 0; i < destinos_cras.length; i++) {
+    addMarkerWithTimeout(destinos_cras[i], i * 200);
+  }
+}
+
+function addMarkerWithTimeout(position, timeout) {
+  window.setTimeout(function() {
+    markers.push(new google.maps.Marker({
+      position: position,
+      map: map,
+      animation: google.maps.Animation.DROP
+    }));
+  }, timeout);
+}
+
+function clearMarkers() {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+  markers = [];
+}
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  var start = "{{data['cra']['latlng'][0]}},{{data['cra']['latlng'][1]}}";
+  var end = document.getElementById('end').value;
+  $('.estimacion').empty();
+  $('.direcciones').empty();
+  directionsService.route({
+    origin: start,
+    destination: end,
+    travelMode: google.maps.TravelMode.DRIVING
+  }, function(response, status) {
+    if (status === google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
+  //$('.adp-summary').appendTo('.estimacion');
+  //$('.adp-directions').appendTo('.direcciones');
+}
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiXY5HUIr0EP8_UOofTJbusQ0FffXnIxE&language=es&signed_in=true&callback=initMap"
+        async defer></script>
+{% endblock %}
+
+
+
+</script>

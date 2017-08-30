@@ -302,3 +302,53 @@ textarea {
         page-break-after: avoid;
     }
 }
+
+
+#barraTiempo label{
+    font-family:'aodTituloResaltado', 'Roboto';
+    text-transform: uppercase;
+    font-size: 30px;
+    letter-spacing: 0.07em;
+    font-weight: normal;
+    color: #2E3133;
+    line-height: 1.5em;
+    margin-top: 10px;
+}
+
+h3{
+    font-family:'aodTituloResaltado', 'Roboto' !important;
+    text-transform: uppercase !important;
+    font-size: 30px !important;
+    letter-spacing: 0.07em;
+    font-weight: normal;
+    color: #2E3133 !important;
+    line-height: 1.5em;
+    margin-top: 10px;
+}
+h3 a{
+    color: #2E3133 !important;
+}
+
+@font-face {
+	font-family: aodHighline;
+	font-style: normal;
+	font-weight: 100;
+	src: url('../../../../../public/themes/fonts/aodRobotoLight.ttf');
+}
+
+.highline{
+	font-family: 'aodHighline', 'Roboto' !important;
+	font-size: 20px !important;
+	text-align: justify !important;
+	line-height: 21px !important;
+	border: 1px solid #2E3133;
+	margin: 0 auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	height:126px;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-direction: column;
+	border-radius: 15px;
+}

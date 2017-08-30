@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--DOCTYPE html-->
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -18,15 +18,48 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="/static/css/normalize.css">
-        <link rel="stylesheet" href="/static/css/main.css">
-        <link rel="stylesheet" href="/static/css/foundation.css">
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:800' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="/static/css/custom.css">
-        <script src="/static/js/vendor/modernizr-2.6.2.min.js"></script>
-        <link href="/static/css/simple-slider.css" rel="stylesheet" type="text/css" />
-
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+        
+        <!--<link rel="stylesheet" href="cras/static/css/normalize.css">
+        <link rel="stylesheet" href="cras/static/css/main.css">
+        <link rel="stylesheet" href="cras/static/css/foundation.css">
+        <link rel="stylesheet" href="cras/static/css/custom.css">
+        <script src="cras/static/js/vendor/modernizr-2.6.2.min.js"></script>
+        <link href="cras/static/css/simple-slider.css" rel="stylesheet" type="text/css" />-->
+				
+			{% if (request.path == "/team") or  (request.path == "/evolucion-alumnos") %}
+					<link rel="stylesheet" href=" static/css/normalize.css">
+		      <link rel="stylesheet" href=" static/css/main.css">
+		      <link rel="stylesheet" href=" static/css/foundation.css">
+		      <link rel="stylesheet" href=" static/css/custom.css">
+		      <script src=" static/js/vendor/modernizr-2.6.2.min.js"></script>
+		      <link href=" static/css/simple-slider.css" rel="stylesheet" type="text/css" />
+		    {% elif "/rutas/" in request.path or "/scrapea_trayecto/" in request.path %}
+		    	<link rel="stylesheet" href="../static/css/normalize.css">
+		      <link rel="stylesheet" href="../static/css/main.css">
+		      <link rel="stylesheet" href="../static/css/foundation.css">
+		      <link rel="stylesheet" href="../static/css/custom.css">
+		      <script src="../static/js/vendor/modernizr-2.6.2.min.js"></script>
+		      <link href="../static/css/simple-slider.css" rel="stylesheet" type="text/css" />
+				{% elif "/evolucion-alumnos/cra/" in request.path %}
+					<link rel="stylesheet" href="../../static/css/normalize.css">
+		      <link rel="stylesheet" href="../../static/css/main.css">
+		      <link rel="stylesheet" href="../../static/css/foundation.css">
+		      <link rel="stylesheet" href="../../static/css/custom.css">
+		      <script src="../../static/js/vendor/modernizr-2.6.2.min.js"></script>
+		      <link href="../../static/css/simple-slider.css" rel="stylesheet" type="text/css" />
+				{% else %}
+					<link rel="stylesheet" href="cras/static/css/normalize.css">
+		      <link rel="stylesheet" href="cras/static/css/main.css">
+		      <link rel="stylesheet" href="cras/static/css/foundation.css">
+		      <link rel="stylesheet" href="cras/static/css/custom.css">
+		      <script src="cras/static/js/vendor/modernizr-2.6.2.min.js"></script>
+		      <link href="cras/static/css/simple-slider.css" rel="stylesheet" type="text/css" />
+				
+				{% endif %}
+				
+				
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -36,7 +69,15 @@
         <header>
         <div class="row">
         <div class="large-6 medium-6 small-12 columns">
-        <h1><a href="/">CRAs Aragón</a></h1> Descubre la distribución y evolución de los Colegios Rurales Agrupados de Aragón.
+        	<h1>
+        		{% if request.path == "/team" or request.path == "/evolucion-alumnos" %}
+        			<a href="../cras">CRAs Aragón</a>
+        		{% elif "evolucion-alumnos/cra/" in request.path %}
+        			<a href="../../../cras">CRAs Aragón</a>
+        		{% else %}
+        			<a href="cras">CRAs Aragón</a>
+        		{% endif %}
+        	</h1> Descubre la distribución y evolución de los Colegios Rurales Agrupados de Aragón.
         </div>
         <div id="help" class="large-6 medium-6 small-12 columns">
             <p>Las líneas unen las escuelas pertenecientes a un CRA con la escuela que lo gestiona. <br>Los círculos representan el número de alumnos en el año seleccionado. <br>Puedes clicar en las escuelas para visualizar la evolución del número de niños escolarizados.</p>
@@ -57,9 +98,9 @@
                     </div>
                     <div class="large-6 small-6 columns">
                         <ul class="inline-list right">
-                            <li><a href="/team">Equipo</a></li>
+                            <li><a href="/apps/cras/team">Equipo</a></li>
                             <li><a href="https://github.com/aragonopendata/JodoCoders">Código en GitHub</a></li>
-                            <li><a href="/static/informe_cra_aragon.pdf">Informe de los CRAs en PDF</a></li>
+                            <li><a href="/apps/cras/static/informe_cra_aragon.pdf">Informe de los CRAs en PDF</a></li>
                         </ul>
                     </div>
                 </div>
@@ -67,12 +108,30 @@
         </footer>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-        <script type="text/javascript" src="/static/js/tile.stamen.js"></script>
-        <script src="/static/js/Chart.min.js"></script>
-        <script src="/static/js/Chart.StackedBar.js"></script>
-        <script src="/static/js/simple-slider.js"></script>
-        <script src="/static/js/plugins.js"></script>
-        <script src="/static/js/main.js"></script>
+        {% if (request.path == "/team") or  (request.path == "/evolucion-alumnos") %}
+					<script type="text/javascript" src=" static/js/tile.stamen.js"></script>
+		      <script src=" static/js/Chart.min.js"></script>
+		      <script src=" static/js/Chart.StackedBar.js"></script>
+		      <script src=" static/js/simple-slider.js"></script>
+		      <script src=" static/js/plugins.js"></script>
+		      <script src=" static/js/main.js"></script>
+		    {% elif "/evolucion-alumnos/cra/" in request.path %}
+					<script type="text/javascript" src="../../static/js/tile.stamen.js"></script>
+		      <script src="../../static/js/Chart.min.js"></script>
+		      <script src="../../static/js/Chart.StackedBar.js"></script>
+		      <script src="../../static/js/simple-slider.js"></script>
+		      <script src="../../static/js/plugins.js"></script>
+		      <!--<script src="../static/js/main.js"></script>-->
+				{% else %}
+					<script type="text/javascript" src="cras/static/js/tile.stamen.js"></script>
+		      <script src="cras/static/js/Chart.min.js"></script>
+		      <script src="cras/static/js/Chart.StackedBar.js"></script>
+		      <script src="cras/static/js/simple-slider.js"></script>
+		      <script src="cras/static/js/plugins.js"></script>
+		      <script src="cras/static/js/main.js"></script>
+				
+				{% endif %}
+        
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
             function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;

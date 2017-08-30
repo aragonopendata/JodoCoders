@@ -1,29 +1,137 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="row">
-        <div class="large-7 columns" role="content">
-            <div id="map"></div>
-        </div>
-        <div class="large-5 columns">
-            <label>Curso</label> <input id="yearSelect" type="text" data-slider="true" data-slider-range="2002,2013" data-slider-step="1" data-slider-snap="true">
-            
-            <h3>En <span class="place_name">Aragón</span></h3> <a href="#" id="back_to_aragon" style='display:none'>Ver todo Aragón</a>
 
-            <p>En el curso <span id="selected_course">2013/2014</span> hubo <strong id="total_students">{{ total_students }}</strong> estudiantes<span id="total_students_general_copy"> en Colegios Rurales Agrupados</span>.</p>
-            <div id="general_data">
-            <p>Repartidos en <strong id="total_places">{{total_places}}</strong> poblaciones.</p>
-            <p>Escolarizados en <strong id="total_centers">{{ total_centers }}</strong> centros diferentes.</p>
-            </div>
-            <div id="place_data"></div>
+<link rel="stylesheet" href="../../public/themes/aod/tipografia.css" media="screen" type="text/css" />
 
-            <p>Evolución de niños escolarizados de los últimos años en <strong><span class="place_name">Aragón</span></strong>:</p>
-            <div id="chartContainer">
-            </div>
-        </div>
-        <div id="share" class="large-12 columns">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=http://crasaragon.com/" target="_blank">Compártelo en Facebook</a> | 
-            <a href="https://twitter.com/intent/tweet?original_referer=http://crasaragon.com/&amp;text=Descubre la distribución y evolución de los Colegios Rurales Agrupados de Aragón&amp;tw_p=tweetbutton&amp;url=http://crasaragon.com/" target="_blank">Compártelo en Twitter</a>
-        </div>
-    </div>
+
+
+<style>
+	.row{
+		padding-bottom: 30px;
+	}
+
+	.aEvolucionAlumno{
+	    font-family: 'aodTituloResaltado', 'Roboto';
+	    text-transform: uppercase;
+	    font-size: 30px;
+	    letter-spacing: 0.07em;
+	    font-weight: normal;
+	    
+	    background-color: #2E3133;
+	    line-height: 1.5em;
+	    border: 1px solid #2E3133;
+	    padding: 10px;    
+	    border-radius: 20px;
+	    width: 60%;
+    	text-align: center;
+    	margin: 0 auto;
+	}
+	.aEvolucionAlumno:hover{
+		background-color: white;
+		
+	}
+	.aEvolucionAlumno a{
+		color: white !important;
+	}
+	.aEvolucionAlumno a:hover{
+		color: #2E3133 !important;
+	}
+	.aEvolucionAlumno a:link {   
+	 	text-decoration:none;   
+	}
+
+	.titular{
+	    font-family: 'aodTituloResaltado', 'Roboto';
+	    text-transform: uppercase;
+	    font-size: 30px;
+	    letter-spacing: 0.07em;
+	    font-weight: normal;
+	    color: #2E3133;
+	    line-height: 1.5em;
+	    margin-top: 10px; 
+
+	}
+     
+</style>
+
+<div class="row">
+	<div class="large-9 columns">
+		<div class="textosNormales">
+			Los Centros Rurales Agrupados (CRA) son centros educativos donde se imparten clases de Educación Infantil y Primaria en diversos municipios de carácter rural de Aragón y de otras CCAA con situaciones geográficas similares. Los CRA surgen como tales en la década de los 80 y suponen la continuidad de las escuelas rurales. Su función es permitir la existencia de una educación de calidad en zonas rurales con poca población, donde no hay alumnos suficientes para mantener una escuela tradicional. En Aragón afectan a las tres provincias y tienen mucha importancia en comarcas y municipios con escasa población
+		</div>
+	</div>
+	<div class="large-3 columns">
+		<div class="highline">En Aragón en el curso {{course}} hay {{total_centers}} CRA activos</div>
+	</div>
+</div>
+<div class="row">
+
+	<div class="large-3 columns">
+		<div class="highline">En el curso {{course}} {{total_places}} municipios de Aragón envían a sus niños a un CRA</div>
+	</div>
+	
+	<div class="large-9 columns">
+		<div class="textosNormales">Los Colegios Rurales Agrupados son un recurso imprescindible para mantener la vertebración territorial y la cohesión en Aragón. El entorno rural vive el envejecimiento y la caída de natalidad de su población y la existencia de estos centros supone una manera de mantener a la población en sus territorios. La existencia de los CRA supone la posibilidad de acceder a enseñanza para los más jóvenes y es uno de los baremos más tenidos en cuenta de la calidad de vida entre la población joven de esas zonas, así como la población que se plantea la migración a los entornos rurales.</div>
+	</div>
+</div>
+<div class="row">
+	<div class="large-9 columns">
+		<div class="textosNormales">
+			Pero lo realmente importante es que los Colegios Rurales Agrupados están compuestos de niños, niñas y personal docente, los CRA están formados por los hijos de los habitantes de los entornos rurales de Aragón. Esta aplicación está hecha para visibilizar la vida diaria de todos esos niños y niñas que cada día tienen que viajar por carretera para asistir a clase. En Aragón Open Data hemos recogido la gran idea de aplicación que hizo el equipo Jodocoders en el Jacathon de 2014 sobre los CRA y la hemos ampliado porque estamos convencidos de la importancia de los CRA para la educación de nuestros hijos. Ellos construirán el futuro.
+		</div>
+	</div>
+	<div class="large-3 columns">
+		<div class="highline">{{total_students}} niños han ido a un CRA de Aragón en el curso {{course}}</div>
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+		<div class="aEvolucionAlumno">
+			<a href="./cras/evolucion-alumnos">
+				Descubre los CRA de Aragón
+			</a>
+		</div>		
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+		<a href="./cras/evolucion-alumnos">
+			<div id="map" style="position: relative;height: 300px;">
+			
+			</div>	
+		</a>	
+	</div>
+</div>
+
+{#<div class="row">
+	<div class="large-12 columns">
+		<div class="titular">
+			¿Sabías qué…?
+		</div>
+	</div>
+	<div class="large-12 columns">
+		<div class="textosNormales">
+			{%set porcentajeCRA = total_students * 100 / total_students_aragon%}
+			El {{porcentajeCRA|round(2, 'floor') }}% de los niños escolarizados en Aragón en el curso {{course}} ha ido a un CRA.
+		</div>
+		<div class="textosNormales">
+			{% set media_horas_alumno = total_datos_CRAS['tiempoTotal'] / total_students_aragon %}
+			Cada niño que va a un CRA en el curso {{course}} pasa de media  {{media_horas_alumno|round(2, 'floor')}} horas al año viajando. Eso supone XXX días completos.
+			
+		</div>
+		<div class="textosNormales">
+			Cada niño que va a un CRA en el curso {{course}} recorre de media XXX kilómetros al año viajando. Eso supone hacer en un año XXX veces la distancia entre Zaragoza y Madrid.
+		</div>
+		<div class="textosNormales">
+			La suma del tiempo empleado viajando por todos los niños de Aragón que acuden a un CRA en el curso {{course}} es igual a XXXX años
+		</div>
+		<div class="textosNormales">
+			La suma de la distancia recorrida por todos los niños de Aragón que acuden a un CRA en el curso {{course}} es de XXXX kilómetros, lo que es equivalente a ir y volver a la luna XX veces
+		</div>
+	</div>
+</div>#}
+
 {% endblock %}
-         
