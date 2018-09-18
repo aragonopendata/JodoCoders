@@ -13,4 +13,4 @@ A continuación hay que situarse sobre la ruta del JAR y ejecutar el siguiente c
 
 java -jar UpdateCRAS.jar 2016/2017
 
-El JAR está compilado para que exista una conexión en: localhost:22100/CRAs
+El JAR está compilado para que exista una conexión en: localhost:22005/CRAs
