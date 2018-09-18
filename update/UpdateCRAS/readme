@@ -1,6 +1,6 @@
 En CKAN, existe un dataset donde se encuentran los datos referentes a los CRAS:
 
-http://opendata.aragon.es/datos/tablas-resumen-centros-rurales-agrupados-por-municipios
+https://opendata.aragon.es/datos/catalogo/dataset/tablas-resumen-centros-rurales-agrupados-cra-municipios
 
 Si tratamos de acceder el recurso que proporciona el anterior dataset, un enlace nos redirige al BI del IAEST:
 
@@ -11,6 +11,6 @@ Se elimina la cabecera y se coloca en la ruta del JAR.
 
 A continuación hay que situarse sobre la ruta del JAR y ejecutar el siguiente comando (para el curso 2016/2017):
 
-java -jar UpdateCRAS.jar 2016/2016
+java -jar UpdateCRAS.jar 2016/2017
 
 El JAR está compilado para que exista una conexión en: localhost:22100/CRAs
