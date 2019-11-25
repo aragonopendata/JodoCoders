@@ -112,7 +112,7 @@ $(document).ready(function() {
     	//El codigo para pintar
     }
 
-    var year = 2017;
+    var year = 2018;
     var selectedPlace;
     var selectedCra;
 
@@ -243,8 +243,8 @@ $(document).ready(function() {
     });
 
     $(".dragger").append($('<div id="yearLabel"></div>'));
-    $('#yearSelect').simpleSlider('setValue', 2017);
-    setYear(2017);
+    $('#yearSelect').simpleSlider('setValue', 2018);
+    setYear(2018);
 
 
     /*$.getJSON("/apps/cras/students_by_year", function(resp){

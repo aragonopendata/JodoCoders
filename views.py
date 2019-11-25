@@ -70,7 +70,7 @@ def __total_students_cra_by_year(cra, year, cursor):
 @app.route("/")
 def index():
 	#hacer las cosas que quieras
-	year = request.args.get('year', '2017')
+	year = request.args.get('year', '2018')
 	year = year + '/' + str(int(year) + 1)
 	cursor = configuracion.conexion().cursor()
 
@@ -100,12 +100,12 @@ def index():
 def evolucionAlumnos():
 	cursor = configuracion.conexion().cursor()
 	
-	year = '2017/2018'
+	year = '2018/2019'
 	return render_template('evolucion.html', total_students=__total_students_by_year(year, cursor), total_centers=__total_centers_by_year(year, cursor), total_places=__total_places_by_year(year, cursor))
 
 @app.route("/statistics")
 def statistics():
-	year = request.args.get('year', '2017')
+	year = request.args.get('year', '2018')
 	year = year + '/' + str(int(year) + 1)
 	cursor = configuracion.conexion().cursor()
 	statistics = { 'total_students': __total_students_by_year(year, cursor), 
@@ -122,7 +122,7 @@ def team():
 
 @app.route("/cras")
 def cras():
-	year = request.args.get('year', '2017')
+	year = request.args.get('year', '2018')
 	year = year + '/' + str(int(year) + 1)
 	cursor = configuracion.conexion().cursor()
 	query = 'select c.Id_cra, c.CRA, c.Lat, c.Lon, c.Id_mun, c.Municipio, e.Id_mun, e.municipio_sede_del_CRA, m.Lat, m.Lon, e.Total from Educ_cra c join Educ_cra_evol e on c.Id_cra=e.Id_cra join A_municipios m on e.Id_mun=m.Id_mun where Año=%s;'
@@ -265,7 +265,7 @@ def show_cras(cras_id):
 @app.route('/evolucion-alumnos/cra/<cras_id>')
 def rutas(cras_id):
 	filtroAnio = ''
-	filtroAnio = '2017/2018'
+	filtroAnio = '2018/2019'
 	#if request.args.get('filtroAnio'):
 		#filtroAnio			= url2pathname(request.args.get('filtroAnio')).encode('utf-8')
 	cursor = configuracion.conexion().cursor()
