@@ -73,7 +73,6 @@ def index():
 	year = request.args.get('year', '2018')
 	year = year + '/' + str(int(year) + 1)
 	cursor = configuracion.conexion().cursor()
-
 	total_students = __total_students_by_year(year, cursor), 
 	total_centers = __total_centers_by_year(year, cursor), 
 	total_places = __total_places_by_year(year, cursor)

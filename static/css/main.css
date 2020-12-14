@@ -333,7 +333,7 @@ h3 a{
 	font-family: aodHighline;
 	font-style: normal;
 	font-weight: 100;
-	src: url('../../../../../public/themes/fonts/aodRobotoLight.ttf');
+	src: url('/static/public/themes/fonts/aodRobotoLight.ttf');
 }
 
 .highline{

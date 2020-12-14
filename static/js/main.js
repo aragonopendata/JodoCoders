@@ -22,7 +22,7 @@ $(document).ready(function() {
                 this.openPopup();
                 console.log('El place es ', place, ' y el place ', root);
                 selectPlace(place, root);
-                $.getJSON("/apps/cras/show_municipality/"+place.id, {year: year}, function(resp){
+                $.getJSON("/servicios/cras/show_municipality/"+place.id, {year: year}, function(resp){
                     drawLineChart(resp);
                 });
                 //console.log('Se va pintar el gráfico de barras')
@@ -118,7 +118,7 @@ $(document).ready(function() {
 
 
     var load_cras = function() {
-        $.getJSON('/apps/cras/cras', {year: year}, function(cras) {
+        $.getJSON('/servicios/cras/cras', {year: year}, function(cras) {
           map.removeLayer(markers);
           markers = L.layerGroup().addTo(map);
 
@@ -133,7 +133,7 @@ $(document).ready(function() {
           });
 
         if((!selectedPlace) && (!selectedCra)){
-            $.getJSON('/apps/cras/statistics', {year: year}, function(stats){
+            $.getJSON('/servicios/cras/statistics', {year: year}, function(stats){
                 $("#total_places").text(stats.total_places);
                 $("#total_students").text(stats.total_students);
                 $("#total_centers").text(stats.total_centers);
@@ -150,7 +150,7 @@ $(document).ready(function() {
     $('#back_to_aragon').on('click', function(){
         $('#back_to_aragon').hide();
         //$('#chartContainer .canvasLine').empty();
-        $.getJSON("/apps/cras/students_by_year", function(resp){
+        $.getJSON("/servicios/cras/students_by_year", function(resp){
 	        drawLineChart(resp);
 	    });
 	    $.getJSON("show_aragon_year/", {filtroAnio: yearString}, function(resp){
@@ -186,7 +186,7 @@ $(document).ready(function() {
 
     var carga_Municipio= function(municipio){
     	//console.log('Entramos en el carga_Municipio y el curso es '+yearString);
-		$.getJSON("/apps/cras/show_municipality_by_year/"+municipio.id, {filtroAnio: yearString}, function(resp){
+		$.getJSON("/servicios/cras/show_municipality_by_year/"+municipio.id, {filtroAnio: yearString}, function(resp){
            	
            	drawBarChart(resp);
         });
@@ -195,11 +195,11 @@ $(document).ready(function() {
     var carga_CRA = function(CRA) {
     	//console.log('Entramos en carga_CRA '+yearString);
     	//console.log('Antes de pintar el grafico de lineas de CRAS')
-    	$.getJSON("/apps/cras/students_by_year_and_CRA/"+CRA.id, function(resp){
+    	$.getJSON("/servicios/cras/students_by_year_and_CRA/"+CRA.id, function(resp){
             drawLineChartCras(resp);
         });
     	//console.log('Antes de pintar el grafico de barras de CRAS');
-    	$.getJSON("/apps/cras/show_cras/"+CRA.id, {filtroAnio: yearString}, function(resp){
+    	$.getJSON("/servicios/cras/show_cras/"+CRA.id, {filtroAnio: yearString}, function(resp){
             //console.log('En el CRA '+CRA.name+' tiene '+resp[0]['total']+' alumnos en el curso '+yearString)
             $("#total_students_CRA").text(resp[0]['total']);
             drawBarChartCras(resp);
@@ -236,7 +236,7 @@ $(document).ready(function() {
       }
       else{
       	//console.log('Los valores seleccionados son in_CRAS', in_CRAS, ' en selectedPlace ', selectedPlace, ' y en selectedCra ', selectedCra);
-      	$.getJSON("/apps/cras/students_by_year", function(resp){
+      	$.getJSON("/servicios/cras/students_by_year", function(resp){
         	drawLineChart(resp);
    		});
       }
